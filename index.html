@@ -359,7 +359,7 @@
       transform: translateY(-1px);
     }
     
-    /* ===== নতুন: APK ডাউনলোড বাটন ===== */
+    /* ===== APK ডাউনলোড বাটন ===== */
     .btn-download-apk {
       background: #22c55e;
       color: #fff;
@@ -395,6 +395,27 @@
     
     [data-theme="dark"] .btn-download-apk:hover {
       background: #16a34a;
+    }
+    
+    /* ===== ফিরে যান বাটন (APK পেজ থেকে) ===== */
+
+    
+    .btn-back-to-app:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: var(--shadow-lg);
+    }
+    
+    .btn-back-to-app:active {
+      transform: scale(0.98);
+    }
+    
+    [data-theme="dark"] .btn-back-to-app {
+      background: #efebe6;
+      color: #1c1b1a;
+    }
+    
+    [data-theme="dark"] .btn-back-to-app:hover {
+      background: #fff;
     }
     
     .landing-features {
@@ -1638,7 +1659,7 @@
       <p class="landing-sub">মার্জিনাল হলো আপনার আরামদায়ক অফলাইন নোটবুক। কোনো অ্যাকাউন্ট নেই, কোনো সিঙ্ক নেই — শুধু আপনার কথা, নিরাপদে রাখা।</p>
       <div class="landing-rule"></div>
       
-      <!-- ===== নতুন বাটন এখানে ===== -->
+      <!-- ===== APK ডাউনলোড বাটন ===== -->
       <a href="https://mdrmabid.github.io/notepad/download.html" target="_blank" class="btn-download-apk" id="btn-download-apk">
         <span>📦</span> APK ডাউনলোড করুন
       </a>
@@ -1646,6 +1667,9 @@
       <button class="btn-primary" id="btn-get-started" style="margin-top:12px;">
         <span>📖</span> নোটবুক খুলুন
       </button>
+      
+      <!-- ===== ফিরে যান বাটন (APK পেজ থেকে ফিরে আসার জন্য) ===== -->
+
       
       <div class="landing-features">
         <span class="landing-feature">
@@ -2747,6 +2771,20 @@
           });
         }
 
+        // --- ফিরে যান বাটন (APK পেজ থেকে ফিরে আসার জন্য) ---
+        const backBtn = document.getElementById('btn-back-to-app');
+        if (backBtn) {
+          backBtn.addEventListener('click', () => {
+            // জানালা বন্ধ করার চেষ্টা করুন (যদি popup হয়)
+            if (window.history.length > 1) {
+              window.history.back();
+            } else {
+              // যদি history না থাকে, তাহলে হোম পেজে রিডাইরেক্ট করুন
+              window.location.href = '/';
+            }
+          });
+        }
+
         // --- Go Home from dashboard ---
         const goHomeBtn = document.getElementById('btn-go-home');
         if (goHomeBtn) {
@@ -2827,9 +2865,9 @@
         }
 
         // --- Editor Back ---
-        const backBtn = document.getElementById('btn-back');
-        if (backBtn) {
-          backBtn.addEventListener('click', closeEditor);
+        const backBtnEditor = document.getElementById('btn-back');
+        if (backBtnEditor) {
+          backBtnEditor.addEventListener('click', closeEditor);
         }
 
         // --- Editor Title ---
